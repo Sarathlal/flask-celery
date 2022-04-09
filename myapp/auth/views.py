@@ -1,6 +1,7 @@
 from . import auth_blueprint
 from myapp.auth.forms import RegistrationForm, LoginForm
 from flask import render_template, url_for, request, redirect, Blueprint, json, flash, session
+from flask_login import login_user, logout_user, current_user, login_required
 from myapp.models import User
 # from myapp import db, bcrypt
 from myapp.models import db
@@ -22,7 +23,7 @@ def login():
             return redirect(url_for('auth.login'))
         else:
             login_user(user, remember=True)
-            return redirect(url_for('user.index'))
+            return redirect(url_for('main.index'))
     return render_template('auth/login.html', form=form, login=True)
 
 @auth_blueprint.route('/register', methods=['GET','POST'])

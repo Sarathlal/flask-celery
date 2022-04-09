@@ -40,5 +40,7 @@ def create_app():
 ### Helper Functions ###
 def register_blueprints(app):
     from myapp.auth import auth_blueprint
+    from myapp.main import main_blueprint
 
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
+    app.register_blueprint(main_blueprint)
