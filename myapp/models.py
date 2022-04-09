@@ -3,6 +3,10 @@ from flask_login import UserMixin
 
 db = SQLAlchemy()
 
+@login_manager.user_loader
+def load_user(user_id):
+        return User.query.get(int(id))
+
 class User(db.Model):
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
