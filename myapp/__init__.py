@@ -8,8 +8,10 @@ from dotenv import load_dotenv
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object(os.getenv('APP_SETTINGS'))
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    # Configure the flask app instance
+    CONFIG_TYPE = os.getenv('CONFIG_TYPE', default='config.DevelopmentConfig')
+    app.config.from_object(CONFIG_TYPE)
 
     from myapp.models import db
     db.init_app(app)
@@ -18,15 +20,21 @@ def create_app():
     bcrypt = Bcrypt(app)
 
     # with app.app_context():
-    #     from myapp.plugin.routes import plugin
-    #     app.register_blueprint(plugin)
-
-    #     db.create_all()
+        # # Register blueprints
+        # register_blueprints(app)
 
     app.app_context().push()
-    from myapp.plugin.routes import plugin
-    app.register_blueprint(plugin)
 
-    db.create_all()    
+    # Register blueprints
+    register_blueprints(app)
+
+    db.create_all()
 
     return app
+
+
+### Helper Functions ###
+def register_blueprints(app):
+    from myapp.auth import auth_blueprint
+
+    app.register_blueprint(auth_blueprint, url_prefix='/auth')
