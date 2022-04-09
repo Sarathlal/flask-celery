@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="theme-color" content="#000">
+
+	<!-- SEO -->
+  	<meta name="author" content="Clinic App">
+  	<meta name="description" content="Clinic App">
+  	<meta name="keywords" content="Clinic App">
+
+	<link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/png">
+
+    <title>WP Dash</title>
+
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+
+<body>
+
+  <main class="main_box">
+    <div class="d-flex justify-content-between flex-column flex-lg-row">
+      <div class="main_right_area bg_grey flex-fill">
+
+        {% block content %}{% endblock %}
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash_messages alert alert-{{ category }} alert-dismissible" role="alert">
+                    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+                    <div class="alert-message">
+                        {{ message }}
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+      </div><!-- main_right_area -->
+    </div>
+  </main><!-- main_box -->
+
+
+
+  {% block scripts %}{% endblock %}
+</body>
+
+</html>

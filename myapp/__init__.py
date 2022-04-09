@@ -7,6 +7,8 @@ import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 from dotenv import load_dotenv
 
+login_manager = LoginManager()
+
 def create_app():
     app = Flask(__name__)
 
@@ -19,6 +21,7 @@ def create_app():
 
     migrate = Migrate(app, db)
     bcrypt = Bcrypt(app)
+    login_manager.init_app(app)
 
     # with app.app_context():
         # # Register blueprints
