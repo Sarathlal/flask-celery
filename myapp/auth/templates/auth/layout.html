@@ -25,13 +25,10 @@
     <div class="d-flex justify-content-between flex-column flex-lg-row">
       <div class="main_right_area bg_grey flex-fill">
 
-        {% block content %}{% endblock %}
-
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
                 <div class="flash_messages alert alert-{{ category }} alert-dismissible" role="alert">
-                    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
                     <div class="alert-message">
                         {{ message }}
                     </div>
@@ -39,6 +36,9 @@
             {% endfor %}
         {% endif %}
         {% endwith %}
+
+        {% block content %}{% endblock %}
+
       </div><!-- main_right_area -->
     </div>
   </main><!-- main_box -->

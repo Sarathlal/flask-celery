@@ -1,5 +1,5 @@
 from . import auth_blueprint
-from myapp.auth.forms import RegistrationForm
+from myapp.auth.forms import RegistrationForm, LoginForm
 from flask import render_template, url_for, request, redirect, Blueprint, json, flash, session
 from myapp.models import User
 # from myapp import db, bcrypt
@@ -16,13 +16,12 @@ def index():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        user = Admin.query.filter_by(email=form.email.data).first()
+        user = User.query.filter_by(email=form.email.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password', 'danger')
-            return redirect(url_for('user.login'))
+            return redirect(url_for('auth.login'))
         else:
             login_user(user, remember=True)
-            # session['account_type'] = 'user'
             return redirect(url_for('user.index'))
     return render_template('auth/login.html', form=form, login=True)
 
