@@ -24,6 +24,5 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-def __init__(self, id, email):
-   self.id = id
-   self.email = email
+    def __repr__(self):
+    return f"Plugin ('{self.id}', '{self.email}')"
